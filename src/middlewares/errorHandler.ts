@@ -5,7 +5,7 @@ const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err instanceof Error) {
     if (err.cause) {
       const cause = err.cause as { status: number; code?: string };
-      res.status(cause.status).json({ message: err.message, code: cause.code });
+      res.status(cause.status ?? 500).json({ message: err.message, code: cause.code });
       return;
     }
     res.status(500).json({ message: err.message });
